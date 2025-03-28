@@ -1,0 +1,16 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+    <h2>Мои задачи</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <strong>{{ task.title }}</strong> - {{ task.get_status_display }}
+                <br>
+                <small>Создано: {{ task.created_at|date:"d.m.Y H:i" }}</small>
+            </li>
+        {% empty %}
+            <p>У вас нет задач</p>
+        {% endfor %}
+    </ul>
+{% endblock content %}

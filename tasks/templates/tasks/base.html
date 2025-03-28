@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do-List</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'task_list' %}">Мои задачи</a>
+
+        {% if request.user.is_authenticated %}
+            <p>Hello {{ request.user.username }}</p>
+            <a href="{% url 'create_task' %}">Создать задачу</a>
+            {% if request.user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="Аватарка" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+            {% else %}
+            <img src="/media/avatars/default-avatar.png" alt="Аватарка" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+            {% endif %}
+            <a href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+            <a href="{% url 'login' %}">Войти</a>
+            <a href="{% url 'register' %}">Регестрация</a>
+        {% endif %}
+    </nav>    
+
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+</body>
+</html>
