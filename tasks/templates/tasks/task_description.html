@@ -1,0 +1,14 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+
+    <h2>{{ task.title }}</h2>
+    <p><strong>Описание: </strong>{{ task.description }}<p>
+    <p><strong>Создал: </strong>{{ task.user.username }}</p>
+    <p><strong>Дата создания: </strong>{{ task.created_at|date:"d.m.Y H:i" }}</p>
+    {% if task.due_date %}
+        <p><strong>Дедлайн: </strong>{{ task.get_status_display }}</p>
+    {% endif %}
+    <p><strong>Статус: </strong>{{ task.get_status_display }}</p>
+    <a href="{% url 'task_list' %}">Назад к списку задач</a>
+{% endblock content %}

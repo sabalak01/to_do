@@ -5,8 +5,16 @@
     <ul>
         {% for task in tasks %}
             <li>
-                <strong>{{ task.title }}</strong> - {{ task.get_status_display }}
+                <strong><a href="{% url 'task_description' task.id %}">{{ task.title }}</a></strong> - {{ task.get_status_display }}
                 <br>
+                {% if task.status == 'pending' %}
+                    <a href="{% url 'complete_task' task.id %}">Завершить</a>
+                {% else %}
+                    <p> ✔ Завершено</p>
+                {% endif %}
+                <a href="{% url 'delete_task' task.id %}" onclick="return confitm('Вы уверены что хотите удалить эту задачу?')">
+                    <p>❌ Удалить</p>
+                </a>
                 <small>Создано: {{ task.created_at|date:"d.m.Y H:i" }}</small>
             </li>
         {% empty %}
